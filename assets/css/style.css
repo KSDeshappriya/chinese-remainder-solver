@@ -20,7 +20,11 @@ body {
     background-color: var(--light-color);
     font-family: 'Poppins', sans-serif;
     transition: background-color var(--transition-speed) ease;
-    margin-bottom: 60px;
+    min-height: 100vh; /* Ensure minimum height of viewport */
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding-bottom: 0; /* Remove bottom padding */
 }
 
 [data-bs-theme="dark"] body {
@@ -239,13 +243,25 @@ body {
     --bs-accordion-active-bg: rgba(255, 255, 255, 0.08);
 }
 
+/* Sticky footer styles */
+main {
+    flex: 1 0 auto; /* This makes the content area take up all available space */
+}
+
 footer {
     background-color: rgba(0, 0, 0, 0.03);
     transition: background-color var(--transition-speed) ease;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto; /* Push footer to bottom when content is short */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 10;
 }
 
 [data-bs-theme="dark"] footer {
     background-color: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Form validation styles */

@@ -40,99 +40,118 @@
         </div>
     </nav>
 
-    <div class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="card main-card shadow-lg">
-                    <div class="card-header">
-                        <h2 class="text-center mb-0">Chinese Remainder Theorem Solver</h2>
-                        <p class="text-center text-muted mt-2 mb-0">Find solutions to systems of linear congruences</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="alert alert-info alert-dismissible fade show" role="alert">
-                            <div class="d-flex">
-                                <i class="bi bi-info-circle-fill me-2 fs-4"></i>
-                                <div>
-                                    <p>This tool solves systems of linear congruences using the Chinese Remainder Theorem.</p>
-                                    <p class="mb-0"><strong>Example:</strong> Find x such that x ≡ 3 (mod 5), x ≡ 4 (mod 7), and x ≡ 1 (mod 9)</p>
-                                </div>
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <main>
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card main-card shadow-lg">
+                        <div class="card-header">
+                            <h2 class="text-center mb-0">Chinese Remainder Theorem Solver</h2>
+                            <p class="text-center text-muted mt-2 mb-0">Find solutions to systems of linear congruences</p>
                         </div>
-                        
-                        <form id="crt-form" class="needs-validation" novalidate>
-                            <div id="equations-container">
-                                <!-- Equation rows will be dynamically added here -->
+                        <div class="card-body">
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <div class="d-flex">
+                                    <i class="bi bi-info-circle-fill me-2 fs-4"></i>
+                                    <div>
+                                        <p>This tool solves systems of linear congruences using the Chinese Remainder Theorem.</p>
+                                        <p class="mb-0"><strong>Example:</strong> Find x such that x ≡ 3 (mod 5), x ≡ 4 (mod 7), and x ≡ 1 (mod 9)</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                             
-                            <div class="d-flex flex-wrap justify-content-between gap-2 mb-4 mt-3">
-                                <button type="button" id="add-equation" class="btn btn-outline-primary">
-                                    <i class="bi bi-plus-circle me-1"></i> Add Equation
-                                </button>
-                                <div>
-                                    <button type="button" id="load-example" class="btn btn-outline-secondary me-2">
-                                        <i class="bi bi-lightning-fill me-1"></i> Load Example
+                            <form id="crt-form" class="needs-validation" novalidate>
+                                <div id="equations-container">
+                                    <!-- Equation rows will be dynamically added here -->
+                                </div>
+                                
+                                <div class="d-flex flex-wrap justify-content-between gap-2 mb-4 mt-3">
+                                    <button type="button" id="add-equation" class="btn btn-outline-primary">
+                                        <i class="bi bi-plus-circle me-1"></i> Add Equation
                                     </button>
-                                    <button type="button" id="clear-form" class="btn btn-outline-danger">
-                                        <i class="bi bi-trash me-1"></i> Clear All
+                                    <div>
+                                        <button type="button" id="load-example" class="btn btn-outline-secondary me-2">
+                                            <i class="bi bi-lightning-fill me-1"></i> Load Example
+                                        </button>
+                                        <button type="button" id="clear-form" class="btn btn-outline-danger">
+                                            <i class="bi bi-trash me-1"></i> Clear All
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg solve-btn">
+                                        <i class="bi bi-calculator me-1"></i> Solve System
                                     </button>
                                 </div>
-                            </div>
+                            </form>
                             
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg solve-btn">
-                                    <i class="bi bi-calculator me-1"></i> Solve System
-                                </button>
-                            </div>
-                        </form>
-                        
-                        <div id="result-section" class="mt-4 d-none">
-                            <div class="card result-card">
-                                <div class="card-header">
-                                    <h4 class="mb-0"><i class="bi bi-check2-circle me-2"></i>Solution</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="result-content"></div>
-                                    
-                                    <div class="accordion mt-4" id="stepsAccordion">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSteps">
-                                                    <i class="bi bi-list-ol me-2"></i> View Calculation Steps
-                                                </button>
-                                            </h2>
-                                            <div id="collapseSteps" class="accordion-collapse collapse show">
-                                                <div class="accordion-body">
-                                                    <div id="steps-content"></div>
+                            <div id="result-section" class="mt-4 d-none">
+                                <div class="card result-card">
+                                    <div class="card-header">
+                                        <h4 class="mb-0"><i class="bi bi-check2-circle me-2"></i>Solution</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="result-content"></div>
+                                        
+                                        <div class="accordion mt-4" id="stepsAccordion">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSteps">
+                                                        <i class="bi bi-list-ol me-2"></i> View Calculation Steps
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseSteps" class="accordion-collapse collapse show">
+                                                    <div class="accordion-body">
+                                                        <div id="steps-content"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                    <div class="text-center mt-3">
-                                        <button id="copy-result" class="btn btn-sm btn-outline-primary me-2">
-                                            <i class="bi bi-clipboard me-1"></i> Copy Solution
-                                        </button>
-                                        <button id="new-calculation" class="btn btn-sm btn-outline-secondary">
-                                            <i class="bi bi-arrow-repeat me-1"></i> New Calculation
-                                        </button>
+                                        
+                                        <div class="text-center mt-3">
+                                            <button id="copy-result" class="btn btn-sm btn-outline-primary me-2">
+                                                <i class="bi bi-clipboard me-1"></i> Copy Solution
+                                            </button>
+                                            <button id="new-calculation" class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-arrow-repeat me-1"></i> New Calculation
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div id="error-section" class="mt-4 d-none">
-                            <div class="alert alert-danger d-flex align-items-center" id="error-message-container">
-                                <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
-                                <div id="error-message"></div>
+                            
+                            <div id="error-section" class="mt-4 d-none">
+                                <div class="alert alert-danger d-flex align-items-center" id="error-message-container">
+                                    <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+                                    <div id="error-message"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
+    <footer class="py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">© 2023 Chinese Remainder Theorem Solver</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <a href="#" class="text-decoration-none me-3" data-bs-toggle="modal" data-bs-target="#aboutModal">About</a>
+                    <a href="#" class="text-decoration-none me-3" data-bs-toggle="modal" data-bs-target="#helpModal">Help</a>
+                    <a href="https://github.com" target="_blank" class="text-decoration-none">
+                        <i class="bi bi-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
     <!-- About Modal -->
     <div class="modal fade" id="aboutModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -208,23 +227,6 @@
         </div>
     </div>
 
-    <footer class="py-4 mt-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start">
-                    <p class="mb-0">© 2023 Chinese Remainder Theorem Solver</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-                    <a href="#" class="text-decoration-none me-3" data-bs-toggle="modal" data-bs-target="#aboutModal">About</a>
-                    <a href="#" class="text-decoration-none me-3" data-bs-toggle="modal" data-bs-target="#helpModal">Help</a>
-                    <a href="https://github.com" target="_blank" class="text-decoration-none">
-                        <i class="bi bi-github"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/crt.js"></script>
     <script src="./assets/js/app.js"></script>
