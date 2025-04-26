@@ -1,59 +1,292 @@
-body {
-    background-color: #f8f9fa;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+:root {
+    --primary-color: #3a86ff;
+    --secondary-color: #8338ec;
+    --success-color: #06d6a0;
+    --danger-color: #ef476f;
+    --warning-color: #ffd166;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --card-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    --transition-speed: 0.3s;
 }
 
-.card {
-    border-radius: 10px;
+[data-bs-theme="dark"] {
+    --primary-color: #4d96ff;
+    --card-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+    color-scheme: dark;
+}
+
+body {
+    background-color: var(--light-color);
+    font-family: 'Poppins', sans-serif;
+    transition: background-color var(--transition-speed) ease;
+    margin-bottom: 60px;
+}
+
+[data-bs-theme="dark"] body {
+    background-color: #121212;
+}
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-speed) ease;
+}
+
+[data-bs-theme="dark"] .navbar {
+    background-color: rgba(33, 37, 41, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.main-card {
+    border: none;
+    border-radius: 15px;
     overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: all var(--transition-speed) ease;
 }
 
 .card-header {
-    padding: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem;
+    border-bottom: none;
+}
+
+.card-body {
+    padding: 2rem;
 }
 
 .equation-row {
-    transition: all 0.3s ease;
+    position: relative;
+    transition: all var(--transition-speed) ease;
+    margin-bottom: 1rem;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 10px;
+    padding: 0.75rem;
+}
+
+[data-bs-theme="dark"] .equation-row {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .equation-row:hover {
     transform: translateX(5px);
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-bs-theme="dark"] .equation-row:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.equation-number {
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 20px;
+}
+
+.input-group {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.input-group-text {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: background-color var(--transition-speed) ease;
+}
+
+[data-bs-theme="dark"] .input-group-text {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.form-control {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-speed) ease;
+}
+
+[data-bs-theme="dark"] .form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(58, 134, 255, 0.25);
 }
 
 .remove-equation {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    transition: all var(--transition-speed) ease;
+}
+
+.remove-equation:hover {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: all var(--transition-speed) ease;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+}
+
+.solve-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.solve-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.result-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    animation: slideDown 0.5s ease forwards;
+}
+
+.result-card .card-header {
+    background-color: var(--success-color);
+    padding: 1rem 2rem;
 }
 
 #result-section, #error-section {
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transform: translateY(-20px);
+    transition: all var(--transition-speed) ease;
 }
 
 #result-section.show, #error-section.show {
     opacity: 1;
+    transform: translateY(0);
 }
 
 .steps-item {
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    border-left: 4px solid #0d6efd;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+    transition: all var(--transition-speed) ease;
+}
+
+[data-bs-theme="dark"] .steps-item {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.steps-item:hover {
+    transform: translateX(5px);
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-bs-theme="dark"] .steps-item:hover {
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
 .math-formula {
     font-family: 'Times New Roman', Times, serif;
     font-style: italic;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+}
+
+[data-bs-theme="dark"] .math-formula {
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
 .solution-highlight {
     font-weight: bold;
-    color: #198754;
-    font-size: 1.2rem;
+    color: var(--success-color);
+    font-size: 1.4rem;
+    animation: pulse 2s infinite;
 }
 
+.accordion {
+    --bs-accordion-btn-bg: rgba(0, 0, 0, 0.03);
+    --bs-accordion-active-bg: rgba(0, 0, 0, 0.05);
+    --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(58, 134, 255, 0.25);
+}
+
+[data-bs-theme="dark"] .accordion {
+    --bs-accordion-btn-bg: rgba(255, 255, 255, 0.05);
+    --bs-accordion-active-bg: rgba(255, 255, 255, 0.08);
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.03);
+    transition: background-color var(--transition-speed) ease;
+}
+
+[data-bs-theme="dark"] footer {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Form validation styles */
+.was-validated .form-control:invalid, .form-control.is-invalid {
+    border-color: var(--danger-color);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23ef476f'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ef476f' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
+    .card-body {
+        padding: 1.25rem;
+    }
+    
     .input-group {
         flex-wrap: wrap;
     }
@@ -62,5 +295,45 @@ body {
         flex: 1 1 auto;
         width: auto;
         margin-bottom: 5px;
+        border-radius: 4px !important;
     }
+    
+    .input-group-text, .form-control, .btn {
+        width: 100%;
+    }
+    
+    .equation-number {
+        display: none;
+    }
+    
+    .equation-row {
+        padding: 0.5rem;
+    }
+    
+    .btn {
+        margin-top: 5px;
+    }
+    
+    .form-check-input {
+        margin-top: 0;
+    }
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
 }

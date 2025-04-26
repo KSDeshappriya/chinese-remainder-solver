@@ -1,64 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chinese Remainder Finder</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Chinese Remainder Theorem Solver</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container py-5">
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="bi bi-calculator-fill me-2 fs-3"></i>
+                <span>CRT Solver</span>
+            </a>
+            <div class="ms-auto d-flex align-items-center">
+                <div class="form-check form-switch me-3">
+                    <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                    <label class="form-check-label" for="darkModeToggle">
+                        <i class="bi bi-moon-fill"></i>
+                    </label>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#aboutModal">About CRT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#helpModal">Help</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow">
-                    <div class="card-header bg-primary text-white">
+            <div class="col-lg-10">
+                <div class="card main-card shadow-lg">
+                    <div class="card-header">
                         <h2 class="text-center mb-0">Chinese Remainder Theorem Solver</h2>
+                        <p class="text-center text-muted mt-2 mb-0">Find solutions to systems of linear congruences</p>
                     </div>
                     <div class="card-body">
-                        <div class="alert alert-info">
-                            <p>This tool solves systems of linear congruences using the Chinese Remainder Theorem.</p>
-                            <p class="mb-0">Example: Find x such that x ≡ 3 (mod 5), x ≡ 4 (mod 7), and x ≡ 1 (mod 9)</p>
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <div class="d-flex">
+                                <i class="bi bi-info-circle-fill me-2 fs-4"></i>
+                                <div>
+                                    <p>This tool solves systems of linear congruences using the Chinese Remainder Theorem.</p>
+                                    <p class="mb-0"><strong>Example:</strong> Find x such that x ≡ 3 (mod 5), x ≡ 4 (mod 7), and x ≡ 1 (mod 9)</p>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         
-                        <form id="crt-form">
+                        <form id="crt-form" class="needs-validation" novalidate>
                             <div id="equations-container">
-                                <div class="equation-row mb-3">
-                                    <div class="input-group">
-                                        <span class="input-group-text">x ≡</span>
-                                        <input type="number" class="form-control remainder" placeholder="Remainder" required>
-                                        <span class="input-group-text">(mod</span>
-                                        <input type="number" class="form-control modulus" placeholder="Modulus" required min="1">
-                                        <span class="input-group-text">)</span>
-                                        <button type="button" class="btn btn-danger remove-equation">✕</button>
-                                    </div>
+                                <!-- Equation rows will be dynamically added here -->
+                            </div>
+                            
+                            <div class="d-flex flex-wrap justify-content-between gap-2 mb-4 mt-3">
+                                <button type="button" id="add-equation" class="btn btn-outline-primary">
+                                    <i class="bi bi-plus-circle me-1"></i> Add Equation
+                                </button>
+                                <div>
+                                    <button type="button" id="load-example" class="btn btn-outline-secondary me-2">
+                                        <i class="bi bi-lightning-fill me-1"></i> Load Example
+                                    </button>
+                                    <button type="button" id="clear-form" class="btn btn-outline-danger">
+                                        <i class="bi bi-trash me-1"></i> Clear All
+                                    </button>
                                 </div>
                             </div>
                             
-                            <div class="d-flex justify-content-between mb-4">
-                                <button type="button" id="add-equation" class="btn btn-secondary">Add Equation</button>
-                                <button type="button" id="clear-form" class="btn btn-warning">Clear All</button>
-                            </div>
-                            
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg">Solve</button>
+                                <button type="submit" class="btn btn-primary btn-lg solve-btn">
+                                    <i class="bi bi-calculator me-1"></i> Solve System
+                                </button>
                             </div>
                         </form>
                         
                         <div id="result-section" class="mt-4 d-none">
-                            <div class="card">
-                                <div class="card-header bg-success text-white">
-                                    <h4 class="mb-0">Solution</h4>
+                            <div class="card result-card">
+                                <div class="card-header">
+                                    <h4 class="mb-0"><i class="bi bi-check2-circle me-2"></i>Solution</h4>
                                 </div>
                                 <div class="card-body">
                                     <div id="result-content"></div>
-                                    <div id="steps-content" class="mt-3"></div>
+                                    
+                                    <div class="accordion mt-4" id="stepsAccordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSteps">
+                                                    <i class="bi bi-list-ol me-2"></i> View Calculation Steps
+                                                </button>
+                                            </h2>
+                                            <div id="collapseSteps" class="accordion-collapse collapse show">
+                                                <div class="accordion-body">
+                                                    <div id="steps-content"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="text-center mt-3">
+                                        <button id="copy-result" class="btn btn-sm btn-outline-primary me-2">
+                                            <i class="bi bi-clipboard me-1"></i> Copy Solution
+                                        </button>
+                                        <button id="new-calculation" class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-arrow-repeat me-1"></i> New Calculation
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div id="error-section" class="mt-4 d-none">
-                            <div class="alert alert-danger" id="error-message"></div>
+                            <div class="alert alert-danger d-flex align-items-center" id="error-message-container">
+                                <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+                                <div id="error-message"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,13 +133,99 @@
         </div>
     </div>
 
-    <footer class="bg-light text-center py-3 mt-5">
+    <!-- About Modal -->
+    <div class="modal fade" id="aboutModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">About Chinese Remainder Theorem</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>The Chinese Remainder Theorem (CRT) is a mathematical statement about congruences in number theory and its generalizations in abstract algebra.</p>
+                    
+                    <p>It states that if one knows the remainders of the Euclidean division of an integer n by several integers, then one can determine uniquely the remainder of the division of n by the product of these integers, under the condition that the divisors are pairwise coprime (no two divisors share a common factor other than 1).</p>
+                    
+                    <h5 class="mt-4">Applications</h5>
+                    <ul>
+                        <li><strong>Modular arithmetic:</strong> CRT is fundamental in solving systems of modular equations</li>
+                        <li><strong>Cryptography:</strong> Used in various encryption schemes like RSA</li>
+                        <li><strong>Computer science:</strong> Useful in distributed computing and error correction codes</li>
+                        <li><strong>Number theory:</strong> Helps solve complex problems in number theory research</li>
+                    </ul>
+                    
+                    <h5 class="mt-4">Formula</h5>
+                    <p>If m₁, m₂, ..., mₙ are pairwise coprime positive integers, then the system of congruences:</p>
+                    <div class="math-formula text-center my-3">
+                        x ≡ a₁ (mod m₁)<br>
+                        x ≡ a₂ (mod m₂)<br>
+                        ⋮<br>
+                        x ≡ aₙ (mod mₙ)
+                    </div>
+                    <p>has a unique solution modulo M = m₁ × m₂ × ... × mₙ</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">How to Use</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Step 1: Enter Equations</h6>
+                    <p>Enter each congruence equation by specifying the remainder and modulus. For example, if you have x ≡ 3 (mod 5), enter "3" as the remainder and "5" as the modulus.</p>
+                    
+                    <h6>Step 2: Add More Equations (Optional)</h6>
+                    <p>Click "Add Equation" to add more congruence equations to the system.</p>
+                    
+                    <h6>Step 3: Solve</h6>
+                    <p>Click "Solve System" to find the solution that satisfies all equations.</p>
+                    
+                    <h6>Understanding Results</h6>
+                    <p>The result will be in the form: x ≡ a (mod M) where:</p>
+                    <ul>
+                        <li>a is the smallest non-negative solution</li>
+                        <li>M is the product of all moduli</li>
+                    </ul>
+                    <p>This means the general solution is x = a + M·k for any integer k.</p>
+                    
+                    <div class="alert alert-warning mt-3">
+                        <strong>Note:</strong> The Chinese Remainder Theorem requires that all moduli are pairwise coprime. If they're not, you'll receive an error message.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 mt-5">
         <div class="container">
-            <p class="mb-0">© 2023 Chinese Remainder Finder</p>
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">© 2023 Chinese Remainder Theorem Solver</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                    <a href="#" class="text-decoration-none me-3" data-bs-toggle="modal" data-bs-target="#aboutModal">About</a>
+                    <a href="#" class="text-decoration-none me-3" data-bs-toggle="modal" data-bs-target="#helpModal">Help</a>
+                    <a href="https://github.com" target="_blank" class="text-decoration-none">
+                        <i class="bi bi-github"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/crt.js"></script>
     <script src="./assets/js/app.js"></script>
 </body>
