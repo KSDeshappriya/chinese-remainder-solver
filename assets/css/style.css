@@ -1,0 +1,66 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 1rem;
+}
+
+.equation-row {
+    transition: all 0.3s ease;
+}
+
+.equation-row:hover {
+    transform: translateX(5px);
+}
+
+.remove-equation {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#result-section, #error-section {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#result-section.show, #error-section.show {
+    opacity: 1;
+}
+
+.steps-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border-left: 4px solid #0d6efd;
+}
+
+.math-formula {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+}
+
+.solution-highlight {
+    font-weight: bold;
+    color: #198754;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .input-group {
+        flex-wrap: wrap;
+    }
+    
+    .input-group > * {
+        flex: 1 1 auto;
+        width: auto;
+        margin-bottom: 5px;
+    }
+}
